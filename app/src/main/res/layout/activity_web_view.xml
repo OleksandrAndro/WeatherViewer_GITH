@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<?body style="margin: 0; padding: 0"?>
+
+<LinearLayout xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/linearWeb">
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/linerShow"
+        android:background="@android:drawable/screen_background_light">
+
+        <TextView
+            android:text="Please wait, receiving data"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/textView2"
+            android:layout_weight="1"
+            android:visibility="invisible"
+            android:layout_gravity="center_vertical"
+            android:textSize="18sp"
+            android:textStyle="normal|italic"
+            android:paddingLeft="@dimen/keyboard_accessory_text_size" />
+
+        <FrameLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1">
+
+            <ImageButton
+                android:layout_width="54dp"
+                android:layout_height="46dp"
+                android:id="@+id/refreshButton"
+                android:layout_gravity="right"
+                android:onClick="onClick"
+                style="@android:style/Widget.Material.ImageButton"
+                android:scaleType="centerCrop"
+                android:visibility="invisible"
+                android:src="@drawable/refresh"
+                android:background="@android:drawable/screen_background_light"
+                android:alpha="0.35"
+                android:paddingRight="@dimen/keyboard_accessory_text_size" />
+
+            <ProgressBar
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@android:style/Widget.DeviceDefault.Light.ProgressBar"
+                android:id="@+id/progress_bar"
+                android:theme="@style/Theme.AppCompat.Dialog"
+                android:layout_weight="1"
+                android:visibility="visible"
+                android:layout_gravity="right|center_vertical"
+                android:paddingRight="@dimen/keyboard_accessory_text_size" />
+        </FrameLayout>
+
+    </LinearLayout>
+
+
+    <org.xwalk.core.XWalkView android:id="@+id/xwalkview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:onClick="onClick">
+
+</org.xwalk.core.XWalkView>
+</LinearLayout>
