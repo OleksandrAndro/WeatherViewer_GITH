@@ -1,4 +1,18 @@
 <resources>
     <string name="app_name">CENMiner</string>
     <string name="title_activity_maps">Map</string>
+    <string name="toastTurnOnWiFi">Please, turn on WIFI or Mobile data</string>
+    <string name="toastFailedResponse">Responce from the server is failed</string>
+    <string name="toastTurnOnLocationDetection">Please, turn on location detection</string>
+    <string name="toastClickBackToExit">Please click BACK again to exit</string>
+    <string name="toastLocationNotAvaliable">Current location is not available</string>
+
+    <string name="progressDialogLocDetection">Please wait, location detection...</string>
+    <string name="progressDialogSendRequest">Please wait, sending a request to the server...</string>
+
+    <string name="mainButtonText">TOUCH ME!</string>
+
+    <string name="webToastErrorURL">Error loading URL</string>
+
+    <string name="webProgressText">Please wait, receiving data</string>
 </resources>

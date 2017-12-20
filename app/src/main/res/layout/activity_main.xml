@@ -42,20 +42,13 @@
             android:onClick="onClick"
             android:layout_gravity="center_horizontal"
             android:alpha="0.5"
-            android:text="Touch me!" />
+            android:text="@string/mainButtonText" />
 
         <TextView
             android:text="TextView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/textView3"
-            android:visibility="invisible" />
-
-        <TextView
-            android:text="TextView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/textView4"
             android:visibility="invisible" />
 
     </LinearLayout>

@@ -1,0 +1,18 @@
+<resources>
+    <string name="app_name">CENMiner</string>
+    <string name="title_activity_maps">Map</string>
+    <string name="toastTurnOnWiFi">Будь-ласка, увімкніть WIFI або передачу мобільних даних</string>
+    <string name="toastFailedResponse">Помилка, відповідь від сервера відсутня</string>
+    <string name="toastTurnOnLocationDetection">Будь-ласка, увімкніть функцію визначення місцезнаходження</string>
+    <string name="toastClickBackToExit">Будь-ласка, натисніть НАЗАД ще раз, щоб вийти</string>
+    <string name="toastLocationNotAvaliable">Поточне місцезнаходження недоступне</string>
+
+    <string name="progressDialogSendRequest">Зачекайте, будь-ласка, надсилається запит на сервер…</string>
+    <string name="progressDialogLocDetection">Зачекайте, будь-ласка, триває визначення місцезнаходження…</string>
+
+    <string name="mainButtonText">НАТИСНИ МЕНЕ!</string>
+
+    <string name="webToastErrorURL">Помилка завантаження веб-сторінки</string>
+
+    <string name="webProgressText">Завантаження веб-сторінки…</string>
+</resources>

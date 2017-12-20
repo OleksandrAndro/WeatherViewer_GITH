@@ -2,6 +2,7 @@
 <?body style="margin: 0; padding: 0"?>
 
 <LinearLayout xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -16,21 +17,21 @@
         android:background="@android:drawable/screen_background_light">
 
         <TextView
-            android:text="Please wait, receiving data"
+            android:text="@string/webProgressText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/textView2"
-            android:layout_weight="1"
             android:visibility="invisible"
             android:layout_gravity="center_vertical"
-            android:textSize="18sp"
             android:textStyle="normal|italic"
-            android:paddingLeft="@dimen/keyboard_accessory_text_size" />
+            android:paddingLeft="@dimen/activity_vertical_margin"
+            android:singleLine="false"
+            android:textSize="@dimen/activity_vertical_margin"
+            android:layout_weight="2" />
 
         <FrameLayout
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1">
+            android:layout_height="wrap_content">
 
             <ImageButton
                 android:layout_width="54dp"
@@ -38,7 +39,6 @@
                 android:id="@+id/refreshButton"
                 android:layout_gravity="right"
                 android:onClick="onClick"
-                style="@android:style/Widget.Material.ImageButton"
                 android:scaleType="centerCrop"
                 android:visibility="invisible"
                 android:src="@drawable/refresh"
