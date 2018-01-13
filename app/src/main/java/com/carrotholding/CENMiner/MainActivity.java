@@ -5,6 +5,7 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.IntentSender;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationListener;
@@ -21,6 +22,17 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.common.api.PendingResult;
+import com.google.android.gms.common.api.ResultCallback;
+import com.google.android.gms.common.api.Status;
+import com.google.android.gms.location.LocationRequest;
+import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.location.LocationSettingsRequest;
+import com.google.android.gms.location.LocationSettingsResult;
+import com.google.android.gms.location.LocationSettingsStatusCodes;
+
 
 import org.chromium.mojo.system.AsyncWaiter;
 import org.xwalk.core.XWalkView;
@@ -84,7 +96,7 @@ public class MainActivity extends AppCompatActivity {
 
         switch (v.getId()) {
 
-            case R.id.imageButton3:                              //start button
+            case R.id.imageButton4:                              //start button
 
                 boolean providerStatus = (locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) || (locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER));
 
@@ -111,7 +123,9 @@ public class MainActivity extends AppCompatActivity {
             dialog.dismiss();
             showDialogGET();
             Controller(location.getLatitude(), location.getLongitude());                                                  //go to REST client for requesting coordinates to server
-            if (ActivityCompat.checkSelfPermission(MainActivity.this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(MainActivity.this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            if (ActivityCompat.checkSelfPermission(MainActivity.this, Manifest.permission.ACCESS_FINE_LOCATION) !=
+                    PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(MainActivity.this, Manifest.permission.ACCESS_COARSE_LOCATION) !=
+                    PackageManager.PERMISSION_GRANTED) {
                 // TODO: Consider calling
                 //    ActivityCompat#requestPermissions
                 // here to request the missing permissions, and then overriding
@@ -175,11 +189,13 @@ public class MainActivity extends AppCompatActivity {
 
     private void Controller(double lat, double longit) {                                        //REST client
 
+        int ttlTime = 4000;
+
         HttpLoggingInterceptor logging = new HttpLoggingInterceptor();                  //it's debuging line
         logging.setLevel(HttpLoggingInterceptor.Level.BODY);     //-----------------
 
         final OkHttpClient.Builder okHttpClient = new OkHttpClient.Builder()
-                .connectTimeout(20, TimeUnit.SECONDS)
+                .connectTimeout(30, TimeUnit.SECONDS)
                 .followRedirects(true)                           //it's important line for current web-resource
                 .addInterceptor(logging);
 
@@ -189,7 +205,7 @@ public class MainActivity extends AppCompatActivity {
                 .client(okHttpClient.build())
                 .build();
         MyRetrofit myRetrofit = retrofit.create(MyRetrofit.class);
-            body = myRetrofit.getData(lat, longit);
+            body = myRetrofit.getData(lat, longit, ttlTime);
             body.enqueue(new Callback<ResponseBody>() {
 
                 @Override
@@ -259,6 +275,7 @@ public class MainActivity extends AppCompatActivity {
         if (!gps_enabled & !network_enabled) {
             Toast toast = Toast.makeText(getApplicationContext(), R.string.toastTurnOnLocationDetection, Toast.LENGTH_LONG);
             toast.show();
+            //displayLocationSettingsRequest(MainActivity.this);
             onClickLocationSettings();
             return;
         }
@@ -275,12 +292,13 @@ public class MainActivity extends AppCompatActivity {
                 // for ActivityCompat#requestPermissions for more details.
                 return;
             }
-            locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0, locationListenerNetwork);
+            locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, locationListenerGPS);
 
         }
 
         if (network_enabled) {
-            locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, locationListenerGPS);
+
+            locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0, locationListenerNetwork);
         }
 
         //starting timer for waiting determine time - 12 seconds for catching geoposition
@@ -288,7 +306,7 @@ public class MainActivity extends AppCompatActivity {
         //GetLastLocation
         timer1 = new Timer();
         showDialogGPS();
-        timer1.schedule(new GetLastLocation(), 12000);
+        timer1.schedule(new GetLastLocation(), 20000);
     }
 
     @Override
@@ -379,12 +397,11 @@ public class MainActivity extends AppCompatActivity {
                     Controller(net_loc.getLatitude(), net_loc.getLongitude());
                     return;
                 }
-                //mainActivity.showToastNoCoord();
 
                 dialog.dismiss();
-                h.sendEmptyMessage(1);
-                Controller(0.0, 0.0);
-                //h.sendEmptyMessage(2);
+                //h.sendEmptyMessage(1);
+                //Controller(0.0, 0.0);
+                h.sendEmptyMessage(2);
             }
 
         }
@@ -395,7 +412,7 @@ public class MainActivity extends AppCompatActivity {
         toast.show();
     }
 
-    private void showDialogGPS() {
+    private void showDialogGPS() {                                 //showing progress dialog about defining GPS location
         dialog = new ProgressDialog(this);
         dialog.setMessage(context.getResources().getString(R.string.progressDialogLocDetection));
         String f = String.valueOf(R.string.progressDialogLocDetection);
@@ -404,14 +421,14 @@ public class MainActivity extends AppCompatActivity {
         dialog.setCanceledOnTouchOutside(false);
         dialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
             @Override
-            public void onCancel(DialogInterface dialog) {
+            public void onCancel(DialogInterface dialog) {           //using for cancel request with the help of BackButton
                 freezing();
             }
         });
         dialog.show();
     }
 
-    private void showDialogGET() {
+    private void showDialogGET() {               //showing progress dialog about performong GET request
         dialog = new ProgressDialog(this);
         dialog.setMessage(context.getResources().getString(R.string.progressDialogSendRequest));
         dialog.setIndeterminate(true);
@@ -419,7 +436,7 @@ public class MainActivity extends AppCompatActivity {
         dialog.setCanceledOnTouchOutside(false);
         dialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
             @Override
-            public void onCancel(DialogInterface dialog) {
+            public void onCancel(DialogInterface dialog) {     //using for cancel request with the help of BackButton
                 if (body != null)
                 body.cancel();
             }
@@ -427,7 +444,7 @@ public class MainActivity extends AppCompatActivity {
         dialog.show();
     }
 
-    private void freezing(){
+    private void freezing(){                          //the method using in onPause and in progress dialogs
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             // TODO: Consider calling
             //    ActivityCompat#requestPermissions
@@ -446,4 +463,45 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    private void displayLocationSettingsRequest(Context context) {
+        GoogleApiClient googleApiClient = new GoogleApiClient.Builder(context)
+                .addApi(LocationServices.API)
+                .build();
+        googleApiClient.connect();
+
+        LocationRequest locationRequest = LocationRequest.create();
+        locationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
+        locationRequest.setInterval(10000);
+        locationRequest.setFastestInterval(10000 / 2);
+
+        LocationSettingsRequest.Builder builder = new LocationSettingsRequest.Builder().addLocationRequest(locationRequest);
+        builder.setAlwaysShow(true);
+
+        PendingResult<LocationSettingsResult> result = LocationServices.SettingsApi.checkLocationSettings(googleApiClient, builder.build());
+        result.setResultCallback(new ResultCallback<LocationSettingsResult>() {
+            @Override
+            public void onResult(LocationSettingsResult result) {
+                final Status status = result.getStatus();
+                switch (status.getStatusCode()) {
+                    case LocationSettingsStatusCodes.SUCCESS:
+                        //Log.i(TAG, "All location settings are satisfied.");
+                        break;
+                    case LocationSettingsStatusCodes.RESOLUTION_REQUIRED:
+                        //Log.i(TAG, "Location settings are not satisfied. Show the user a dialog to upgrade location settings ");
+
+                        /*try {
+                            // Show the dialog by calling startResolutionForResult(), and check the result
+                            // in onActivityResult().
+                           // status.startResolutionForResult(MainActivity.this, REQUEST_CHECK_SETTINGS);
+                        } catch (IntentSender.SendIntentException e) {
+                            //Log.i(TAG, "PendingIntent unable to execute request.");
+                        }*/
+                        break;
+                    case LocationSettingsStatusCodes.SETTINGS_CHANGE_UNAVAILABLE:
+                        //Log.i(TAG, "Location settings are inadequate, and cannot be fixed here. Dialog not created.");
+                        break;
+                }
+            }
+        });
+    }
 }

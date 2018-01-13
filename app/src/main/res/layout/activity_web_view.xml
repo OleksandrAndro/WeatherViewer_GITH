@@ -16,34 +16,52 @@
         android:id="@+id/linerShow"
         android:background="@android:drawable/screen_background_light">
 
-        <TextView
-            android:text="@string/webProgressText"
+        <FrameLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/textView2"
-            android:visibility="invisible"
-            android:layout_gravity="center_vertical"
-            android:textStyle="normal|italic"
-            android:paddingLeft="@dimen/activity_vertical_margin"
-            android:singleLine="false"
-            android:textSize="@dimen/activity_vertical_margin"
-            android:layout_weight="2" />
+            android:layout_weight="1"
+            android:layout_gravity="center_vertical">
+
+            <ImageButton
+                android:text="Button"
+                android:layout_width="37dp"
+                android:layout_height="36dp"
+                android:id="@+id/home"
+                android:visibility="invisible"
+                android:onClick="onClick"
+                android:background="@drawable/back_arrow_new"
+                android:paddingLeft="@dimen/keyboard_accessory_text_size"
+                android:layout_gravity="center_vertical"
+                android:alpha="1" />
+
+            <TextView
+                android:text="@string/webProgressText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/textView2"
+                android:visibility="invisible"
+                android:textStyle="normal|italic"
+                android:paddingLeft="@dimen/activity_vertical_margin"
+                android:singleLine="false"
+                android:textSize="@dimen/activity_vertical_margin"
+                android:layout_weight="2"
+                android:layout_gravity="center_vertical" />
+        </FrameLayout>
 
         <FrameLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
 
             <ImageButton
-                android:layout_width="54dp"
+                android:layout_width="wrap_content"
                 android:layout_height="46dp"
                 android:id="@+id/refreshButton"
                 android:layout_gravity="right"
                 android:onClick="onClick"
                 android:scaleType="centerCrop"
-                android:visibility="invisible"
-                android:src="@drawable/refresh"
-                android:background="@android:drawable/screen_background_light"
-                android:alpha="0.35"
+                android:visibility="visible"
+                android:background="@drawable/refresh1"
+                android:alpha="1"
                 android:paddingRight="@dimen/keyboard_accessory_text_size" />
 
             <ProgressBar
@@ -53,7 +71,7 @@
                 android:id="@+id/progress_bar"
                 android:theme="@style/Theme.AppCompat.Dialog"
                 android:layout_weight="1"
-                android:visibility="visible"
+                android:visibility="invisible"
                 android:layout_gravity="right|center_vertical"
                 android:paddingRight="@dimen/keyboard_accessory_text_size" />
         </FrameLayout>

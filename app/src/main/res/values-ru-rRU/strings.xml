@@ -6,11 +6,12 @@
     <string name="toastTurnOnLocationDetection">Пожалуйста, включите функцию определения местонахождения</string>
     <string name="toastClickBackToExit">Пожалуйста, нажмите НАЗАД еще раз, чтобы выйти</string>
     <string name="toastLocationNotAvaliable">Текущее местоположение недоступно</string>
+    <string name="captionMainActivity">Для получения метеоданных от ближайшего прибора CEN Miner, пожалуйста, включите опцию определения местоположения, WIfI или передачу мобильных данных и нажмите на изображение</string>
 
     <string name="progressDialogSendRequest">Подождите, пожалуйста, отправка запроса на сервер …</string>
     <string name="progressDialogLocDetection">Подождите, пожалуйста, идет определения местоположения …</string>
 
-    <string name="mainButtonText">НАЖМИ МЕНЯ!</string>
+    <string name="mainButtonText">ПОЛУЧИТЬ МЕТЕОДАННЫЕ</string>
 
     <string name="webToastErrorURL">Ошибка загрузки веб-страницы</string>
 

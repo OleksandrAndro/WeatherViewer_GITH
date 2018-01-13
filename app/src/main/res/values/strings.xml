@@ -6,11 +6,12 @@
     <string name="toastTurnOnLocationDetection">Please, turn on location detection</string>
     <string name="toastClickBackToExit">Please click BACK again to exit</string>
     <string name="toastLocationNotAvaliable">Current location is not available</string>
+    <string name="captionMainActivity">For getting meteo data from nearest CEN Miner device, please turn on location detection, WiFi or Mobile data and tap the image below"</string>
 
     <string name="progressDialogLocDetection">Please wait, location detection...</string>
     <string name="progressDialogSendRequest">Please wait, sending a request to the server...</string>
 
-    <string name="mainButtonText">TOUCH ME!</string>
+    <string name="mainButtonText">GET METEO DATA</string>
 
     <string name="webToastErrorURL">Error loading URL</string>
 

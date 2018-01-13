@@ -6,15 +6,25 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.carrotholding.CENMiner.MainActivity"
-    android:layout_alignParentTop="false">
-    //android:background="@drawable/logo"
+    android:layout_alignParentTop="false"
+    android:background="@android:drawable/dialog_holo_light_frame">
 
-    <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:scaleType="centerCrop"
-        android:src="@drawable/logo"
-        android:alpha="0.8"/>
+    <TextView
+        android:text="@string/captionMainActivity"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="26dp"
+        android:id="@+id/textView"
+        android:textSize="@dimen/keyboard_accessory_fading_edge_length"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentRight="false"
+        android:layout_alignParentLeft="false"
+        android:layout_alignParentEnd="false"
+        android:layout_alignParentBottom="false"
+        android:textAllCaps="false"
+        android:textAlignment="center"
+        android:visibility="invisible" />
 
     <LinearLayout
         android:orientation="vertical"
@@ -35,15 +45,6 @@
             android:onClick="onClick"
             android:visibility="invisible" />
 
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/imageButton3"
-            android:onClick="onClick"
-            android:layout_gravity="center_horizontal"
-            android:alpha="0.5"
-            android:text="Touch me!" />
-
         <TextView
             android:text="TextView"
             android:layout_width="match_parent"
@@ -59,5 +60,38 @@
             android:visibility="invisible" />
 
     </LinearLayout>
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="center"
+        android:src="@drawable/carrots_320"
+        android:alpha="0.8"
+        android:id="@+id/imageView"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:cropToPadding="false"
+        android:visibility="invisible" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/imageButton3"
+        android:onClick="onClick"
+        android:background="@drawable/carrots_320"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true"
+        android:scaleType="fitCenter"
+        android:visibility="invisible" />
+
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/imageButton4"
+        android:scaleType="centerCrop"
+        android:layout_centerInParent="true"
+        android:onClick="onClick"
+        android:src="@drawable/carrots_mod"
+        android:background="?android:attr/activatedBackgroundIndicator"/>
 
 </RelativeLayout>

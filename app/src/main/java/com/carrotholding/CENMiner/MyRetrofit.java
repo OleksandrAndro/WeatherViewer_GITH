@@ -10,7 +10,7 @@ import retrofit2.http.Query;
  */
 
 public interface MyRetrofit {
-    @GET("giveNearestDevice")
-    Call<ResponseBody> getData(@Query("Lat") Double Lat, @Query("Lon") Double Lon);
+    @GET("giveNearestDeviceOnline")
+    Call<ResponseBody> getData(@Query("Lat") Double Lat, @Query("Lon") Double Lon, @Query("ttlTime") int ttlTime);
     //Call<List<POJOUmora>> getData ();
 }
