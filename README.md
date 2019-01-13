@@ -1,2 +1,3 @@
 # WeatherViewer_GITH
 This app was created for weather monitoring project, based on mini-meteostation network. Original app version publicated on Goolgle Play (https://play.google.com/store/apps/details?id=com.carrotholding.CENMiner&hl=en), app provides a simple and convenient interface for monitoring environmental parameters. Weather station owners can receive financial benefits in the form of cryptocurrency, which weather stations mine in the monitoring process. 
+For github-version functionality of app was changed, so now it can show your location on OSM (as well as in google maps app in Android). Rest-client does not use in this version, but in the source code it is implemented.
