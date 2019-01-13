@@ -1,0 +1,3 @@
+# WeatherViewer_GITH
+In such case this app showing your location on Open Street Map. But also there is Retrofit-based REST client inside, that provides the ability to use it for other purposes.
+This app was created for weather monitoring project, based on mini-meteostation network. Original app version publicated on Goolgle Play (https://play.google.com/store/apps/details?id=com.carrotholding.CENMiner&hl=en), app provides a simple and convenient interface for monitoring environmental parameters. Weather station owners can receive financial benefits in the form of cryptocurrency, which weather stations mine in the monitoring process. 
